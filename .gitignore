@@ -1,0 +1,39 @@
+# dependencies
+node_modules/
+.pnp*
+
+# next.js / build
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+
+# env & secrets
+.env
+.env.*
+!.env.example
+
+# testing
+coverage/
+playwright-report/
+test-results/
+
+# logs & OS
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# editors
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# local uploads / tmp
+/tmp/
+/uploads/
+.pgdata/
+/storage/
+.env.local.backup-local-db

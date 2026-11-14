@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+/* Lumora design tokens — warm, dark "gallery at night" look with an amber lamplight accent */
+@theme {
+  --color-bg: #0d0a08;
+  --color-surface: #16110d;
+  --color-surface-2: #1f1813;
+  --color-surface-3: #2a2119;
+  --color-border: #2f261e;
+  --color-border-strong: #45382c;
+  --color-muted: #a5978a;
+  --color-subtle: #74685d;
+  --color-fg: #f6eee4;
+  --color-accent: #e8b062;
+  --color-accent-strong: #f2c47e;
+  --color-accent-ink: #1c140c;
+  --color-success: #6fbf8a;
+  --color-warning: #e8b062;
+  --color-danger: #e5776a;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-feature-settings: "ss01", "cv11";
+}
+
+::selection {
+  background: rgb(232 176 98 / 0.35);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Subtle film grain for depth */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.text-glow {
+  background: linear-gradient(100deg, #fff3df 0%, var(--color-accent-strong) 45%, var(--color-accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lamp-glow {
+  background: radial-gradient(closest-side, rgb(242 180 100 / 0.28), rgb(232 150 70 / 0.08) 55%, transparent 75%);
+}
+
+.hairline {
+  background: linear-gradient(90deg, transparent, var(--color-border-strong), transparent);
+  height: 1px;
+}
+
+/* Reveal on load */
+.reveal {
+  animation: reveal 0.9s var(--ease-out-soft) both;
+}
+.reveal-1 { animation-delay: 0.08s; }
+.reveal-2 { animation-delay: 0.16s; }
+.reveal-3 { animation-delay: 0.24s; }
+.reveal-4 { animation-delay: 0.32s; }
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.86; }
+}
+.flicker { animation: flicker 6s ease-in-out infinite; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee { animation: marquee 40s linear infinite; }
+
+@keyframes drawer-in {
+  from { transform: translateX(100%); }
+  to { transform: none; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes drawer-left {
+  from { transform: translateX(-100%); }
+  to { transform: none; }
+}
+.drawer-in { animation: drawer-in 0.38s var(--ease-out-soft) both; }
+.drawer-left { animation: drawer-left 0.38s var(--ease-out-soft) both; }
+.fade-in { animation: fade-in 0.25s ease both; }
+
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .flicker, .marquee, .drawer-in, .drawer-left, .fade-in { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff; color: #000; }
+  .print-light { background: #fff !important; color: #000 !important; border-color: #ddd !important; }
+}
